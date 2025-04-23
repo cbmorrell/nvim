@@ -1,0 +1,8 @@
+tags
+test.sh
+.luarc.json
+nvim
+*.pyc
+
+debugpy/
+lazy-lock.json
