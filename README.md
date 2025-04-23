@@ -1,5 +1,3 @@
-# kickstart-modular.nvim
-
 # Neovim Configuration
 
 Holds configuration files for my custom neovim configuration. I originally started off with a [fork](https://github.com/cbmorrell/kickstart-modular.nvim) of `kickstart.nvim`, but have since moved to my own configuration.
