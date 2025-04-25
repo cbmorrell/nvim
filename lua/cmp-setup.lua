@@ -48,6 +48,7 @@ cmp.setup {
     { name = 'nvim_lsp', max_item_count = 10 },
     { name = 'luasnip', max_item_count = 5 },
     { name = 'path' },
+    { name = 'codeium'}
   },
   performance = {
     max_view_entries = 10,
