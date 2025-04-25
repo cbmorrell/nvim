@@ -160,56 +160,21 @@ return {
 
     end
   },
-  -- Trying to get codeium to only complete when I press a button, but that isn't working...
-  -- {
-  --   'Exafunction/windsurf.vim',
-  --   config = function()
-  --     vim.g.codeium_manual = true
-  --     vim.keymap.set('i', '<C-q>', function() return vim.fn['codeium#Complete()']() end, {expr = true, silent = true})
-  --   end
-  -- }
-  -- {
-  --   "Exafunction/windsurf.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "hrsh7th/nvim-cmp",
-  --   },
-  --   config = function()
-  --     require("codeium").setup({
-  --       enable_cmp_source = false,
-  --       virtual_text = {
-  --         enabled = true,
-  --         manual = true,
-  --         key_bindings = {
-  --           accept = "<Tab>",
-  --           complete = "<C-q>"
-  --         }
-  --       }
-  --     })
-  --       -- require("codeium").setup({
-  --       --   enable_cmp_source = false,
-  --       --   virtual_text = {
-  --       --     enabled = true,
-  --       --     manual = true,
-  --       --     map_keys = false,
-  --       --   }
-  --       -- })
-  --       -- complete = function()
-  --       --   return vim.fn["codeium#Complete"]()
-  --       -- end
-  --       -- accept = function()
-  --       --   return vim.fn["codeium#Accept"]()
-  --       -- end
-  --       -- vim.keymap.set("i", "<C-g>", complete, {expr = true, silent = true})
-  --       -- vim.keymap.set("i", "<C-y>", accept, {expr = true, silent = true})
-  --       -- vim.keymap.set("i", "<C-g>", function()
-  --       --     return vim.fn["codeium#Complete"]()
-  --       -- end, { expr = true, silent = true })
-  --       --
-  --       -- vim.keymap.set("i", "<C-y>", function()
-  --       --     return vim.fn["codeium#Accept"]()
-  --       -- end, { expr = true, silent = true })
-  --
-  --   end
-  -- },
+  {
+    "Exafunction/windsurf.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup({
+        enable_cmp_source = false,
+        virtual_text = {
+          enabled = true,
+          manual = true,
+        }
+      })
+      vim.keymap.set('i', '<C-;>', require('codeium.virtual_text').cycle_or_complete, {expr = true, silent = true})
+    end
+  },
 }
