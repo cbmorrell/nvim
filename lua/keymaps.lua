@@ -45,3 +45,11 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', {noremap = true, silent = true})
 vim.keymap.set('n', '<C-k>', '<C-w>k', {noremap = true, silent = true})
 vim.keymap.set('n', '<C-l>', '<C-w>l', {noremap = true, silent = true})
 
+-- CodeCompanion
+vim.keymap.set({ "n", "v" }, "<leader>cp", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true, desc = 'Command Palette'})
+vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true, desc = 'Open Chat'})
+vim.keymap.set("v", "<leader>ca", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true, desc = 'Add to Chat'})
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
+
