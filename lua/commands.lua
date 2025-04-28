@@ -16,6 +16,9 @@ local function run_ollama_model(opts)
   prompt = prompt .. '\\nProvide all code in this programming langauge: ' .. language
   -- TODO: Need to handle if user puts a ' character or something (add \ I think)... right now it will end the string and throw an error
   -- TODO: Could consider adding separate commands: one for chatting and one for code generation
+  -- Check this link out for structure: https://m4xshen.dev/posts/develop-a-neovim-plugin-in-lua. Probably go with lua/[plugin-name]/init.lua structure
+  -- TODO: will this be just an ollama wrapper? if not, would need to support huggingface... which is way hardeer I think
+  -- Looks to me like this has already been done with CodeCompanion https://github.com/olimorris/codecompanion.nvim
   local payload = '{"model":"' .. model .. '","prompt":"' .. prompt .. '","stream":false}'
   
   -- Build the curl command
