@@ -160,21 +160,21 @@ return {
 
     end
   },
-  {
-    "Exafunction/windsurf.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-    config = function()
-      require("codeium").setup({
-        enable_cmp_source = false,
-        virtual_text = {
-          enabled = true,
-          manual = true,
-        }
-      })
-      vim.keymap.set('i', '<C-;>', require('codeium.virtual_text').cycle_or_complete, {expr = true, silent = true})
-    end
-  },
+  -- {
+  --   "Exafunction/windsurf.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup({
+  --       enable_cmp_source = false,
+  --       virtual_text = {
+  --         enabled = true,
+  --         manual = true,
+  --       }
+  --     })
+  --     vim.keymap.set('i', '<C-;>', require('codeium.virtual_text').cycle_or_complete, {expr = true, silent = true})
+  --   end
+  -- },
 }
