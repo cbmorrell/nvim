@@ -21,10 +21,19 @@ local function run_ollama_model(opts)
 
   -- Parse JSON response
   local success, parsed = pcall(vim.fn.json_decode, result)
-  
+
   if success and parsed.response then
-    -- Insert the response at cursor position
-    vim.api.nvim_put({parsed.response}, 'l', true, true)
+    -- Get the response text
+    local text = parsed.response
+    
+    -- Replace literal \n with actual newlines
+    text = text:gsub("\\n", "\n")
+    
+    -- Split into lines
+    local lines = vim.split(text, "\n")
+    
+    -- Insert the lines at cursor position
+    vim.api.nvim_put(lines, 'l', true, true)
   else
     vim.api.nvim_echo({{"Error: Could not get response from Ollama", "ErrorMsg"}}, false, {})
   end
@@ -32,5 +41,4 @@ end
 
 vim.api.nvim_create_user_command('DiffWithSaved', diff_with_saved, {})
 vim.api.nvim_create_user_command('MyCodeLLM', run_ollama_model, {nargs = '*'})
-
 
