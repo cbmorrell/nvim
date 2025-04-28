@@ -9,11 +9,14 @@ end
 
 -- Command to prompt an LLM running locally on ollama
 local function run_ollama_model(opts)
-  -- Could be improved with a --model command to try out different models if desired
-  local model = 'qwen2.5'
+  -- Could be improved with a --model command to try out different models if desired... or have this in opts if this is a plugin in the future
+  local model = 'qwen2.5-coder'
   local prompt = opts.args
+  local language = vim.bo.filetype
+  prompt = prompt .. '\\nProvide all code in this programming langauge: ' .. language
   -- TODO: Need to handle if user puts a ' character or something (add \ I think)... right now it will end the string and throw an error
-  local payload = '{"model":"' .. model .. '","prompt":"' .. opts.args .. '","stream":false}'
+  -- TODO: Could consider adding separate commands: one for chatting and one for code generation
+  local payload = '{"model":"' .. model .. '","prompt":"' .. prompt .. '","stream":false}'
   
   -- Build the curl command
   local cmd = "curl -s localhost:11434/api/generate -d '" .. payload .. "'"
@@ -28,6 +31,11 @@ local function run_ollama_model(opts)
     
     -- Replace literal \n with actual newlines
     text = text:gsub("\\n", "\n")
+
+    -- Extract code
+    -- TODO: Handle cases where this pattern doesn't match... just say there was an issue finding the code (might come up if the model doesn't provide code).
+    local pattern = '```' .. language .. '(.-)```'
+    text = text:match(pattern)
     
     -- Split into lines
     local lines = vim.split(text, "\n")
