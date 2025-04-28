@@ -160,21 +160,37 @@ return {
 
     end
   },
-  -- {
-  --   "Exafunction/windsurf.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "hrsh7th/nvim-cmp",
-  --   },
-  --   config = function()
-  --     require("codeium").setup({
-  --       enable_cmp_source = false,
-  --       virtual_text = {
-  --         enabled = true,
-  --         manual = true,
-  --       }
-  --     })
-  --     vim.keymap.set('i', '<C-;>', require('codeium.virtual_text').cycle_or_complete, {expr = true, silent = true})
-  --   end
-  -- },
+  {
+    'olimorris/codecompanion.nvim',
+    opts = {
+      adapters = {
+        qwen = function()
+          return require('codecompanion.adapters').extend('ollama', {
+            name = 'qwen',  -- give adapter a name so it can be referenced by strategies
+            schema = {
+              model = {
+                default = 'qwen2.5-coder:latest'
+              }
+            }
+          })
+        end
+      },
+      strategies = {
+        chat = {
+          adapter = 'qwen',
+        },
+        inline = {
+          adapter = 'qwen',
+        },
+        cmd = {
+          adapter = 'qwen',
+        }
+      }
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter'
+    }
+  }
 }
+
