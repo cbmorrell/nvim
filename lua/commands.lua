@@ -10,25 +10,27 @@ end
 -- Command to prompt an LLM running locally on ollama
 local function run_ollama_model(opts)
   -- Could be improved with a --model command to try out different models if desired
+  local model = 'qwen2.5'
   local prompt = opts.args
-  local command = 'ollama run qwen2.5 "' .. prompt .. '"'
-  local handle = io.popen(command)
-  if not handle then
-    vim.notify('Failed to run command: ' .. command, vim.log.levels.ERROR)
-    return
+  -- TODO: Need to handle if user puts a ' character or something (add \ I think)... right now it will end the string and throw an error
+  local payload = '{"model":"' .. model .. '","prompt":"' .. opts.args .. '","stream":false}'
+  
+  -- Build the curl command
+  local cmd = "curl -s localhost:11434/api/generate -d '" .. payload .. "'"
+  local result = vim.fn.system(cmd)
+
+  -- Parse JSON response
+  local success, parsed = pcall(vim.fn.json_decode, result)
+  
+  if success and parsed.response then
+    -- Insert the response at cursor position
+    vim.api.nvim_put({parsed.response}, 'l', true, true)
+  else
+    vim.api.nvim_echo({{"Error: Could not get response from Ollama", "ErrorMsg"}}, false, {})
   end
-  local result = handle:read("*a")
-  handle:close()
-
-
-
-  result = result:gsub("%z", "")
-  print(prompt)
-  print(command)
-  print(result)
-  vim.api.nvim_put({result}, 'c', true, true)
 end
 
 vim.api.nvim_create_user_command('DiffWithSaved', diff_with_saved, {})
 vim.api.nvim_create_user_command('MyCodeLLM', run_ollama_model, {nargs = '*'})
+
 
