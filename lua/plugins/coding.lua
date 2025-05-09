@@ -164,9 +164,9 @@ return {
     'olimorris/codecompanion.nvim',
     opts = {
       adapters = {
-        qwen = function()
+        qwencoder = function()
           return require('codecompanion.adapters').extend('ollama', {
-            name = 'qwen',  -- give adapter a name so it can be referenced by strategies
+            name = 'qwencoder',  -- give adapter a name to differentiate from ollama adapter
             schema = {
               model = {
                 default = 'qwen2.5-coder:latest'
@@ -183,17 +183,27 @@ return {
                 }
               }
             })
+        end,
+        qwen3 = function()
+            return require('codecompanion.adapters').extend('ollama', {
+              name = 'qwen3',
+              schema = {
+                model = {
+                  default = 'qwen3:4b'
+                }
+              }
+            })
         end
       },
       strategies = {
         chat = {
-          adapter = 'codegemma',
+          adapter = 'qwen3',
         },
         inline = {
-          adapter = 'codegemma',
+          adapter = 'qwen3',
         },
         cmd = {
-          adapter = 'codegemma',
+          adapter = 'qwen3',
         }
       }
     },
