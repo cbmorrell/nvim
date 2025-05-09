@@ -189,7 +189,7 @@ return {
               name = 'qwen3',
               schema = {
                 model = {
-                  default = 'qwen3:4b'
+                  default = 'qwen3:1.7b'
                 }
               }
             })
