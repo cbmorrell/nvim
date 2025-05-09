@@ -173,17 +173,27 @@ return {
               }
             }
           })
+        end,
+        codegemma = function()
+            return require('codecompanion.adapters').extend('ollama', {
+              name = 'codegemma',
+              schema = {
+                model = {
+                  default = 'codegemma:7b'
+                }
+              }
+            })
         end
       },
       strategies = {
         chat = {
-          adapter = 'qwen',
+          adapter = 'codegemma',
         },
         inline = {
-          adapter = 'qwen',
+          adapter = 'codegemma',
         },
         cmd = {
-          adapter = 'qwen',
+          adapter = 'codegemma',
         }
       }
     },
